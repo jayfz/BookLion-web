@@ -35,9 +35,23 @@ html,
     tab-size: 4; /* 3 */
     font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
+    font-weight: 400;
     -webkit-tap-highlight-color: transparent; /* 7 */
 
+    --bl-brand: #77adff;
     --bl-main-text-color: #424242;
+
+    --bl-assets-medium-color: #34a853;
+    --bl-liabilities-medium-color: #fff56b;
+    --bl-equity-medium-color: #9cc9ff;
+    --bl-revenue-medium-color: #c4fd92;
+    --bl-expenses-medium-color: #ff689b;
+
+    --bl-positive-amount: #1ce460;
+    --bl-negative-amount: #fbbc05;
+    --bl-neutral-amount: #C7C7C7;
+
+
 
     color: var(--bl-main-text-color);
 }

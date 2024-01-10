@@ -17,17 +17,13 @@ export function useLogin() {
     const { mutate: login, isPending: isLoggingIn } = useMutation({
         mutationFn: ({ email, password }: LoginMutation) => loginWithPassword(email, password),
         onSuccess: (payload) => {
-            //   toast.remove();
             toast.success("Succesfully logged in!");
-
-            console.log(payload);
             queryClient.setQueryData(["token"], payload.data.token);
             appContext.login(payload.data.token);
-            navigate("/overview", { replace: true });
+            navigate("/dashboard/overview", { replace: true });
         },
         onError: (err) => {
             console.log(err);
-            //   toast.remove();
             toast.error("Provided email or password are incorrect");
         },
     });

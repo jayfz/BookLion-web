@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 export default function Root() {
     return (
         <>
-            <ProgressBar type={"indeterminated"} />
+            {/* <ProgressBar type={"indeterminated"} /> */}
 
             <Outlet />
         </>

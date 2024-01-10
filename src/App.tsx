@@ -1,7 +1,15 @@
 import LoginPage from "@/auth/LoginPage";
 import ProtectedRoute from "@/auth/ProtectedRoute";
 import { AppProvider } from "@/context/AppContext";
+import BudgetDetailsPage from "@/features/budget/BudgetDetailsPage";
+import BudgetOverviewPage from "@/features/budget/BudgetsOverviewPage";
+import GeneralJournalPage from "@/features/general-journal/GeneralJournalPage";
+import GeneralLedgerPage from "@/features/general-ledger/GeneralLedgerPage";
+import OverviewDetailsPage from "@/features/overview/OverviewDetailsPage";
 import OverviewPage from "@/features/overview/OverviewPage";
+import BalanceSheetPage from "@/features/reports/BalanceSheetPage";
+import IncomeStamentPage from "@/features/reports/IncomeStamentPage";
+import MobileDrawer from "@/ui/MobileDrawer";
 import Root from "@/ui/Root";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -11,26 +19,74 @@ import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 const applicationRouter = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: (
+            <ProtectedRoute>
+                <Root />
+            </ProtectedRoute>
+        ),
         children: [
             {
                 index: true,
-                element: <Navigate to="/overview" replace />,
+                element: <Navigate to="/dashboard/overview" replace />,
             },
             {
-                path: "/overview",
-                element: (
-                    <ProtectedRoute>
-                        <OverviewPage />
-                    </ProtectedRoute>
-                ),
+                path: "/dashboard",
+                index: true,
+                element: <Navigate to="/dashboard/overview" />,
             },
-            // {
-            //   path: "/budgets"
-            //   element: <ProtectedRoute>
-            //     <BudgetsPage />
-            //   </ProtectedRoute>
-            // },
+            {
+                path: "/dashboard/overview",
+                element: <OverviewPage />,
+            },
+            {
+                path: "/dashboard/overview/assets",
+                element: <OverviewDetailsPage />,
+            },
+            {
+                path: "/dashboard/overview/liabilities",
+                element: <OverviewDetailsPage />,
+            },
+            {
+                path: "/dashboard/overview/equity",
+                element: <OverviewDetailsPage />,
+            },
+            {
+                path: "/dashboard/overview/revenue",
+                element: <OverviewDetailsPage />,
+            },
+            {
+                path: "/dashboard/overview/expenses",
+                element: <OverviewDetailsPage />,
+            },
+            {
+                path: "/dashboard/general-ledger/account/:accountId",
+                element: <GeneralLedgerPage />,
+            },
+            {
+                path: "/dashboard/general-journal/:transactionId",
+                element: <GeneralJournalPage />,
+            },
+            {
+                path: "/dashboard/budgets",
+                element: <BudgetOverviewPage />,
+            },
+            {
+                path: "/dashboard/budgets/:budgetId",
+                element: <BudgetDetailsPage />,
+            },
+            {
+                path: "/dashboard/reports/balance-sheet",
+                element: <BalanceSheetPage />,
+            },
+            {
+                path: "/dashboard/reports/income-statement",
+                element: <IncomeStamentPage />,
+            },
+            {
+                path: "/dashboard/ui/drawer",
+                element: <MobileDrawer />,
+            },
+
             // {
             //   path: "/accounts"
             //   element: <ProtectedRoute>
@@ -73,11 +129,11 @@ const applicationRouter = createBrowserRouter([
             //   path: "/reset-password",
             //   element: <ResetPassword />,
             // },
-            {
-                path: "/login",
-                element: <LoginPage />,
-            },
         ],
+    },
+    {
+        path: "/login",
+        element: <LoginPage />,
     },
 ]);
 
