@@ -1,21 +1,28 @@
 import { useLogin } from "@/auth/useLogin";
+import BookLionQuicksandLightLogo from "@/ui/BookLionQuicksandLightLogo";
 import GoogleSvg from "@/ui/GoogleSvg";
 import { ChangeEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const LoginBox = styled.article`
+const LoginPageContainer = styled.article`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 20px;
+    gap: 2rem;
+    padding: 1rem;
+    align-items: center;
+    margin: auto 0;
+`;
 
-    --bl-input-background: #f5f5f5;
-    --bl-text-gray: #606060;
-    --bl-link-unvisted: #5753ff;
-    --bl-brand: #77adff;
-    --bl-border: #ebebeb;
+const LoginContent = styled.article`
+    background-color: white;
+    border-radius: 1rem;
+    gap: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    margin: auto 0;
+    flex-direction: column;
 `;
 
 const Title = styled.h1`
@@ -23,7 +30,7 @@ const Title = styled.h1`
 `;
 
 const ActionLink = styled(Link)`
-    color: #5753ff;
+    color: var(--bl-link-unvisted);
 `;
 
 type FlexContainer = {
@@ -33,6 +40,8 @@ type FlexContainer = {
 
 const LoginBlock = styled.div<FlexContainer>`
     display: flex;
+    padding: 0.5rem 0;
+
     flex-direction: ${(props) => (props.$direction ? props.$direction : "column")};
     gap: ${(props) => (props.$gap ? props.$gap : "0.5rem")};
 `;
@@ -126,46 +135,53 @@ export default function LoginPage() {
     }, [isLoggingIn]);
 
     return (
-        <LoginBox>
-            <LoginBlock $gap="0.5rem">
-                <Title>Welcome to BookLion</Title>
-                <p>
-                    Don't have an account? <ActionLink to="/signup">Sign up</ActionLink>
-                </p>
-            </LoginBlock>
-            <LoginBlock $gap="0.5rem" as="form">
-                <InputBox
-                    placeholder="Email"
-                    type="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={onEmailChange}
+        <LoginPageContainer>
+            <LoginContent>
+                <BookLionQuicksandLightLogo
+                    fill={"var(--bl-brand)"}
+                    size={"2rem"}
+                    style={{ alignSelf: "center", margin: "1rem 0" }}
                 />
-                <InputBox
-                    placeholder="Password"
-                    type="password"
-                    value={password}
-                    autoComplete="current-password"
-                    onChange={onPasswordChange}
-                />
-                <Button onClick={onLoginClick}>Login</Button>
-                <ActionLink style={{ alignSelf: "end" }} to="/reset-password">
-                    Forgot your password?
-                </ActionLink>
-            </LoginBlock>
-            <Separator>
-                <Hr />
-                <Or>Or</Or>
-                <Hr />
-            </Separator>
-            <GoogleLoginButton>
-                <GoogleSvg />
-                <p>Continue with Google</p>
-            </GoogleLoginButton>
-            <PrivacyPolicy>
-                By continuing, you agree to Book Lion’s <ActionLink to="/terms-of-use">Terms of Use</ActionLink> and{" "}
-                <ActionLink to="/privacy-policy"> Privacy Policy</ActionLink>
-            </PrivacyPolicy>
-        </LoginBox>
+                <LoginBlock $gap="0.5rem">
+                    <Title>Welcome</Title>
+                    <p>
+                        Don't have an account? <ActionLink to="/signup">Sign up</ActionLink>
+                    </p>
+                </LoginBlock>
+                <LoginBlock $gap="0.5rem" as="form">
+                    <InputBox
+                        placeholder="Email"
+                        type="email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={onEmailChange}
+                    />
+                    <InputBox
+                        placeholder="Password"
+                        type="password"
+                        value={password}
+                        autoComplete="current-password"
+                        onChange={onPasswordChange}
+                    />
+                    <Button onClick={onLoginClick}>Login</Button>
+                    <ActionLink style={{ alignSelf: "end" }} to="/reset-password">
+                        Forgot your password?
+                    </ActionLink>
+                </LoginBlock>
+                <Separator>
+                    <Hr />
+                    <Or>Or</Or>
+                    <Hr />
+                </Separator>
+                <GoogleLoginButton>
+                    <GoogleSvg />
+                    <p>Continue with Google</p>
+                </GoogleLoginButton>
+                <PrivacyPolicy>
+                    By continuing, you agree to Book Lion’s <ActionLink to="/terms-of-use">Terms of Use</ActionLink> and{" "}
+                    <ActionLink to="/privacy-policy"> Privacy Policy</ActionLink>
+                </PrivacyPolicy>
+            </LoginContent>
+        </LoginPageContainer>
     );
 }

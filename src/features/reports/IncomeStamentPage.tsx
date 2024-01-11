@@ -1,12 +1,21 @@
 import ReportSection from "@/features/reports/ReportSection";
-import { FilterDate, Title, TotalAmount } from "@/features/reports/ReportUIElements";
+import { Title, TotalAmount } from "@/features/reports/ReportUIElements";
 import { IncomeStament } from "@/types/account";
-import { formatCurrency, formatDate } from "@/utils/formatters";
+import DateFilter from "@/ui/DateFilter";
+import { formatCurrency } from "@/utils/formatters";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
 
 const Container = styled.article`
     padding: 1rem;
+    background-color: white;
+    height: 100%;
+
+    & > div {
+        display: flex;
+        justify-content: end;
+        padding: 0.5rem 0;
+    }
 `;
 
 const data: IncomeStament = {
@@ -67,7 +76,9 @@ export default function IncomeStamentPage() {
 
     return (
         <Container>
-            <FilterDate>{formatDate(new Date(), "short")}</FilterDate>
+            <div>
+                <DateFilter />
+            </div>
             <Title>Income Statement</Title>
             <ReportSection accountName={"revenue"} accountSummary={data.revenue} />
             <ReportSection accountName={"expenses"} accountSummary={data.expenses} />

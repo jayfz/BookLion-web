@@ -1,12 +1,13 @@
 import OverviewAccount from "@/features/overview/OverviewAccount";
+import PageTitle from "@/ui/PageTitle";
 import styled from "styled-components";
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: calc(1.25rem / 2);
-    background-color: #efefef;
-    padding: 1.25rem;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    overflow-y: scroll;
 `;
 
 export default function OverviewPage() {
@@ -51,6 +52,22 @@ export default function OverviewPage() {
 
     return (
         <Container>
+            <PageTitle title="Account overview" />
+            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
+            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
+            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
+            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
+            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
+            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
+            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
+            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
+            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
+            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
+            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
+            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
+            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
+            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
+            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
             <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
             <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
             <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />

@@ -14,8 +14,8 @@ const Container = styled.article`
     padding: 0.5rem 0.75rem;
     background-color: white;
     border-radius: 0.5rem;
-    border: 1px solid #e3e3e3;
-    box-shadow: -1px 1px 0px 0px #e0e0e0;
+    /* border: 1px solid #e3e3e3;
+    box-shadow: -1px 1px 0px 0px #e0e0e0; */
     font-size: 0.75rem;
 
     & hr {
@@ -32,7 +32,7 @@ const TransactionHeader = styled.div`
 
     & > p:first-child {
         font-size: 1rem;
-        color: #c7c7c7;
+        color: #696969;
     }
 
     & > :not(:first-child) {

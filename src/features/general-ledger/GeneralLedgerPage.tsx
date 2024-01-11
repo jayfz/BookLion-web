@@ -1,13 +1,15 @@
 import GeneralLedgerEntry from "@/features/general-ledger/GeneralLedgerEntry";
+import PageTitle from "@/ui/PageTitle";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.article`
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
-    background-color: #efefef;
-    padding: 1.25rem;
+    gap: 0.5rem;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    overflow-y: scroll;
 `;
 
 export default function GeneralLedgerPage() {
@@ -43,6 +45,16 @@ export default function GeneralLedgerPage() {
 
     return (
         <Container>
+            <PageTitle title="General Ledger" />
+            <GeneralLedgerEntry ledgerEntry={data[0]} />
+            <GeneralLedgerEntry ledgerEntry={data[1]} />
+            <GeneralLedgerEntry ledgerEntry={data[2]} />
+            <GeneralLedgerEntry ledgerEntry={data[0]} />
+            <GeneralLedgerEntry ledgerEntry={data[1]} />
+            <GeneralLedgerEntry ledgerEntry={data[2]} />
+            <GeneralLedgerEntry ledgerEntry={data[0]} />
+            <GeneralLedgerEntry ledgerEntry={data[1]} />
+            <GeneralLedgerEntry ledgerEntry={data[2]} />
             <GeneralLedgerEntry ledgerEntry={data[0]} />
             <GeneralLedgerEntry ledgerEntry={data[1]} />
             <GeneralLedgerEntry ledgerEntry={data[2]} />

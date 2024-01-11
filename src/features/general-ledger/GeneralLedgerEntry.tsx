@@ -12,12 +12,12 @@ const Container = styled.article<{ $isNegativeAmount: boolean }>`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+    padding: 0.5rem;
     background-color: white;
     border-radius: 0.5rem;
-    border: 1px solid #e3e3e3;
-    box-shadow: -1px 1px 0px 0px #e0e0e0;
+    /* border: 1px solid #e3e3e3;
+    box-shadow: -1px 1px 0px 0px #e0e0e0; */
     font-size: 0.75rem;
 
     & > p:first-child {

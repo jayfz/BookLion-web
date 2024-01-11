@@ -1,12 +1,21 @@
 import ReportSection from "@/features/reports/ReportSection";
-import { FilterDate, Title, TotalAmount } from "@/features/reports/ReportUIElements";
+import { Title, TotalAmount } from "@/features/reports/ReportUIElements";
 import { BalanceSheet } from "@/types/account";
-import { formatCurrency, formatDate } from "@/utils/formatters";
+import DateFilter from "@/ui/DateFilter";
+import { formatCurrency } from "@/utils/formatters";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
 
 const Container = styled.article`
+    height: 100%;
     padding: 1rem;
+    background-color: white;
+
+    & > div {
+        display: flex;
+        justify-content: end;
+        padding: 0.5rem 0;
+    }
 `;
 
 const data: BalanceSheet = {
@@ -66,7 +75,9 @@ export default function BalanceSheetPage() {
 
     return (
         <Container>
-            <FilterDate>{formatDate(new Date(), "short")}</FilterDate>
+            <div>
+                <DateFilter />
+            </div>
             <Title>Balance Sheet</Title>
             <ReportSection accountName={"assets"} accountSummary={data.assets} />
             <ReportSection accountName={"liabilities"} accountSummary={data.liabilities} />

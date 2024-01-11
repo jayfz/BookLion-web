@@ -30,9 +30,9 @@ const Container = styled.article`
     flex-direction: row;
     gap: 0.5rem;
     align-items: center;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #e3e3e3;
-    box-shadow: -1px 1px 0px 0px #e0e0e0;
+    padding: 0.5rem;
+    /* border: 1px solid #e3e3e3;
+    box-shadow: -1px 1px 0px 0px #e0e0e0; */
     border-radius: 0.5rem;
     background-color: white;
     --bl-assets-weak-color: #d6ffe2;
@@ -51,8 +51,8 @@ const Container = styled.article`
 `;
 
 const IconBox = styled.div<{ $type: AccountType }>`
-    min-height: 3.125rem;
-    min-width: 3.125rem;
+    min-height: 3.75rem;
+    min-width: 3.75rem;
     background-color: ${(account) => `var(--bl-${account.$type.toLowerCase()}-weak-color)`};
     display: flex;
     flex-wrap: wrap;

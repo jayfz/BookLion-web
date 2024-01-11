@@ -25,9 +25,9 @@ const Container = styled.article`
     flex-direction: row;
     gap: 0.5rem;
     align-items: center;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #e3e3e3;
-    box-shadow: -1px 1px 0px 0px #e0e0e0;
+    padding: 0.5rem;
+    /* border: 1px solid #e3e3e3;
+    box-shadow: -1px 1px 0px 0px #e0e0e0; */
     border-radius: 0.5rem;
     background-color: white;
 

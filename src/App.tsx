@@ -10,6 +10,7 @@ import OverviewPage from "@/features/overview/OverviewPage";
 import BalanceSheetPage from "@/features/reports/BalanceSheetPage";
 import IncomeStamentPage from "@/features/reports/IncomeStamentPage";
 import MobileDrawer from "@/ui/MobileDrawer";
+import Playground from "@/ui/Playground";
 import Root from "@/ui/Root";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -134,6 +135,10 @@ const applicationRouter = createBrowserRouter([
     {
         path: "/login",
         element: <LoginPage />,
+    },
+    {
+        path: "/playground",
+        element: <Playground />,
     },
 ]);
 

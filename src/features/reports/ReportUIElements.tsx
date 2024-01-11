@@ -7,9 +7,9 @@ export const Title = styled.h1`
     margin-bottom: 0.5rem;
 `;
 
-export const FilterDate = styled.p`
-    text-align: end;
-`;
+// export const FilterDate = styled.p`
+//     text-align: end;
+// `;
 
 export const TotalAmount = styled.footer`
     text-transform: capitalize;

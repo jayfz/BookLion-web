@@ -1,20 +1,21 @@
 import OverviewAccountDetails from "@/features/overview/OverviewAccountDetails";
-import { AccountType } from "@/types/account";
+import PageTitle from "@/ui/PageTitle";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: calc(1.25rem / 2);
-    background-color: #efefef;
-    padding: 1.25rem;
+    gap: 0.5rem;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    overflow-y: scroll;
 `;
 
-type OverviewDetailsPageProps = {
-    accountType: AccountType;
-};
+export default function OverviewDetailsPage() {
+    const { pathname } = useLocation() as string;
+    const accountType = pathname.split("/").slice(-1).toString() ?? "Account";
 
-export default function OverviewDetailsPage(props) {
     const accountAsset1 = {
         type: "ASSETS" as const,
         transactionCount: 44,
@@ -44,6 +45,16 @@ export default function OverviewDetailsPage(props) {
 
     return (
         <Container>
+            <PageTitle title={`${accountType} Overview`} />
+            <OverviewAccountDetails
+                account={accountAsset1}
+                to={`/dashboard/general-ledger/account/${accountAsset1.number}`}
+            />
+            <OverviewAccountDetails
+                account={accountAsset2}
+                to={`/dashboard/general-ledger/account/${accountAsset2.number}`}
+            />
+            <OverviewAccountDetails account={pension} to={`/general-ledger/account/${pension.number}`} />
             <OverviewAccountDetails
                 account={accountAsset1}
                 to={`/dashboard/general-ledger/account/${accountAsset1.number}`}
