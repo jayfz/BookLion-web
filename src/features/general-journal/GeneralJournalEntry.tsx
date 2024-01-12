@@ -54,7 +54,6 @@ const TransactionLine = styled(TransactionHeader).attrs<{ $accountType: AccountT
 
     & > div > p:last-child {
         color: ${(props) => `var(--bl-${props.$accountType.toLocaleLowerCase()}-medium-color)`};
-        opacity: 0.75;
     }
 `;
 

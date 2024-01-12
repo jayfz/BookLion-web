@@ -1,4 +1,6 @@
 import BookLionQuicksandBoldLogo from "@/ui/BookLionQuicksandBoldLogo";
+import MobileDrawer from "@/ui/MobileDrawer";
+import { useState } from "react";
 import { IoReorderThree } from "react-icons/io5";
 import styled from "styled-components";
 
@@ -16,13 +18,25 @@ const Container = styled.div`
     align-items: center;
 `;
 
+const HamburgerButton = styled.button.attrs({ type: "button" })``;
+
 export default function MobileMenuBar() {
+    const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+
+    const openDrawer = () => setIsDrawerVisible(true);
+    const closeDrawer = () => setIsDrawerVisible(false);
+
     return (
-        <MainContainer>
-            <Container>
-                <BookLionQuicksandBoldLogo style={{ fill: "var(--bl-main-text-color)" }} />
-                <IoReorderThree size={"2rem"} />
-            </Container>
-        </MainContainer>
+        <>
+            <MobileDrawer isVisible={isDrawerVisible} closeDrawer={closeDrawer} />
+            <MainContainer>
+                <Container>
+                    <BookLionQuicksandBoldLogo style={{ fill: "var(--bl-main-text-color)" }} />
+                    <HamburgerButton onClick={openDrawer}>
+                        <IoReorderThree size={"2rem"} />
+                    </HamburgerButton>
+                </Container>
+            </MainContainer>
+        </>
     );
 }

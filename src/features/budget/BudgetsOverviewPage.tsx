@@ -1,32 +1,16 @@
 import BudgetCard from "@/features/budget/BudgetCard";
 import { Budget } from "@/types/account";
+import PageTitle from "@/ui/PageTitle";
 import styled from "styled-components";
 
 const Container = styled.article`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    background-color: #efefef;
-    padding: 1.25rem;
+    padding: 1rem;
+    overflow-y: scroll;
+    padding-top: 0.5rem;
 `;
-
-// export type Budget = {
-//     accountNumber: number;
-//     name: string;
-//     amount: string;
-//     spentSoFar: string;
-// };
-
-// type Spending = {
-//     month: string;
-//     spentAmount: string;
-// };
-// export type BudgetOverTime = {
-//     accountNumber: number;
-//     name: string;
-//     amount: string;
-//     spending: Spending[];
-// };
 
 export default function BudgetOverviewPage() {
     const data: Budget[] = [
@@ -55,6 +39,16 @@ export default function BudgetOverviewPage() {
 
     return (
         <Container>
+            <PageTitle title="Budgets overview" />
+            <BudgetCard budget={data[0]} />
+            <BudgetCard budget={data[1]} />
+            <BudgetCard budget={data[2]} />
+            <BudgetCard budget={data[0]} />
+            <BudgetCard budget={data[1]} />
+            <BudgetCard budget={data[2]} />
+            <BudgetCard budget={data[0]} />
+            <BudgetCard budget={data[1]} />
+            <BudgetCard budget={data[2]} />
             <BudgetCard budget={data[0]} />
             <BudgetCard budget={data[1]} />
             <BudgetCard budget={data[2]} />

@@ -1,4 +1,5 @@
 import LoginPage from "@/auth/LoginPage";
+import Logout from "@/auth/Logout";
 import ProtectedRoute from "@/auth/ProtectedRoute";
 import { AppProvider } from "@/context/AppContext";
 import BudgetDetailsPage from "@/features/budget/BudgetDetailsPage";
@@ -9,7 +10,6 @@ import OverviewDetailsPage from "@/features/overview/OverviewDetailsPage";
 import OverviewPage from "@/features/overview/OverviewPage";
 import BalanceSheetPage from "@/features/reports/BalanceSheetPage";
 import IncomeStamentPage from "@/features/reports/IncomeStamentPage";
-import MobileDrawer from "@/ui/MobileDrawer";
 import Playground from "@/ui/Playground";
 import Root from "@/ui/Root";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -64,7 +64,7 @@ const applicationRouter = createBrowserRouter([
                 element: <GeneralLedgerPage />,
             },
             {
-                path: "/dashboard/general-journal/:transactionId",
+                path: "/dashboard/general-journal/:transactionId?",
                 element: <GeneralJournalPage />,
             },
             {
@@ -84,8 +84,8 @@ const applicationRouter = createBrowserRouter([
                 element: <IncomeStamentPage />,
             },
             {
-                path: "/dashboard/ui/drawer",
-                element: <MobileDrawer />,
+                path: "/logout",
+                element: <Logout />,
             },
 
             // {

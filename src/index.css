@@ -38,9 +38,12 @@ html,
     font-weight: 400;
     -webkit-tap-highlight-color: transparent; /* 7 */
 
+
+    --tw-bg-slate-100: rgb(241 245 249);
+
     --bl-brand: #77adff;
     --bl-main-text-color: #424242;
-    --bl-base-background-color: #F8F9FC;
+    --bl-base-background-color: var(--tw-bg-slate-100);
     /* --bl-base-background-color: #F1F1F1; */
 
     --bl-input-background: var(--bl-base-background-color);

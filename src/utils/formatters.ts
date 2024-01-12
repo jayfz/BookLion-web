@@ -47,7 +47,6 @@ export function formatCurrency(amount: string, formatStyle: "full" | "short" | "
 
     if (formatStyle == "shortest") {
         const amountInUnitsOfThousands = parseFloat(amount) / 1000;
-        console.log(amountInUnitsOfThousands);
 
         const amountWithFormat = currencyFormatter.format(amountInUnitsOfThousands).replace("$", "");
 
@@ -57,24 +56,6 @@ export function formatCurrency(amount: string, formatStyle: "full" | "short" | "
         return amountWithFormat;
     }
 }
-
-// export function formatLedgerAmount(entry: LedgerEntry | BasicLedgerEntry) {
-//     let result: string = "";
-
-//     switch (entry.accountType) {
-//         case "ASSETS":
-//         case "LIABILITIES":
-//         case "EQUITY":
-//             result = entry.credits != "0.00" ? `-${entry.credits}` : entry.debits;
-//             break;
-//         case "EXPENSES":
-//         case "REVENUE":
-//             result = entry.debits != "0.00" ? `-${entry.debits}` : entry.credits;
-//             break;
-//     }
-
-//     return formatCurrency(result, "shortest");
-// }
 
 export function formatVariation(variation: string) {
     const negativeSymbol = "-";

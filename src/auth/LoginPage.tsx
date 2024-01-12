@@ -148,18 +148,20 @@ export default function LoginPage() {
                         Don't have an account? <ActionLink to="/signup">Sign up</ActionLink>
                     </p>
                 </LoginBlock>
-                <LoginBlock $gap="0.5rem" as="form">
+                <LoginBlock $gap="0.5rem" as="form" name="login-form">
                     <InputBox
                         placeholder="Email"
                         type="email"
                         autoComplete="email"
                         value={email}
+                        name="email"
                         onChange={onEmailChange}
                     />
                     <InputBox
                         placeholder="Password"
                         type="password"
                         value={password}
+                        name="password"
                         autoComplete="current-password"
                         onChange={onPasswordChange}
                     />

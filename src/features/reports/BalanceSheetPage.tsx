@@ -10,6 +10,7 @@ const Container = styled.article`
     height: 100%;
     padding: 1rem;
     background-color: white;
+    overflow-y: scroll;
 
     & > div {
         display: flex;

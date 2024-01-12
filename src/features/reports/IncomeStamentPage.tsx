@@ -10,6 +10,7 @@ const Container = styled.article`
     padding: 1rem;
     background-color: white;
     height: 100%;
+    overflow-y: scroll;
 
     & > div {
         display: flex;
@@ -68,9 +69,6 @@ export default function IncomeStamentPage() {
 
     data.revenue.forEach((s) => (totalRevenue = totalRevenue.plus(s.balance)));
     data.expenses.forEach((s) => (totalExpenses = totalExpenses.plus(s.balance)));
-
-    console.log(`Expenses ${totalExpenses.toFixed(2).toString()}`);
-    console.log(`REvenue ${totalRevenue.toFixed(2).toString()}`);
 
     const profitLoss = totalRevenue.minus(totalExpenses);
 

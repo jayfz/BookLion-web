@@ -14,7 +14,6 @@ const Container = styled.article`
 
 export default function GeneralLedgerPage() {
     const { accountId } = useParams();
-    console.log(accountId);
 
     const data = [
         {
@@ -45,7 +44,7 @@ export default function GeneralLedgerPage() {
 
     return (
         <Container>
-            <PageTitle title="General Ledger" />
+            <PageTitle title={`Gen. Ledger (${accountId})`} />
             <GeneralLedgerEntry ledgerEntry={data[0]} />
             <GeneralLedgerEntry ledgerEntry={data[1]} />
             <GeneralLedgerEntry ledgerEntry={data[2]} />

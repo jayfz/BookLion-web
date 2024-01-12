@@ -1,27 +1,16 @@
-import BudgetCard from "@/features/budget/BudgetCard";
 import BudgetDetailsCard from "@/features/budget/BudgetDetailsCard";
-import { Budget, BudgetDetails } from "@/types/account";
+import { BudgetDetails } from "@/types/account";
+import PageTitle from "@/ui/PageTitle";
 import styled from "styled-components";
 
 const Container = styled.article`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    background-color: #efefef;
-    padding: 1.25rem;
+    padding: 1rem;
+    overflow-y: scroll;
+    padding-top: 0.5rem;
 `;
-
-// type Spending = {
-//     month: string;
-//     spentAmount: string;
-// };
-// export type BudgetDetails = {
-//     budgetId: string;
-//     accountNumber: string;
-//     name: string;
-//     amount: string;
-//     spending: Spending[];
-// };
 
 export default function BudgetDetailsPage() {
     const data: BudgetDetails = {
@@ -51,6 +40,9 @@ export default function BudgetDetailsPage() {
 
     return (
         <Container>
+            <PageTitle title="Budget details" />
+            <BudgetDetailsCard budgetDetails={data} />
+            <BudgetDetailsCard budgetDetails={data} />
             <BudgetDetailsCard budgetDetails={data} />
         </Container>
     );

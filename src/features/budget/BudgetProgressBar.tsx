@@ -11,7 +11,6 @@ const BudgetBar = styled.div`
 `;
 
 function normalizeProgress(progress: number) {
-    console.log(`Progress ${progress}`);
     if (progress >= 100) return 100;
 
     if (progress >= 5) return progress;

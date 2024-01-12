@@ -14,7 +14,6 @@ const Container = styled.article`
 
 export default function GeneralLedgerPage() {
     const { transactionId } = useParams();
-    console.log(transactionId);
 
     const data = {
         date: new Date(),
@@ -47,10 +46,16 @@ export default function GeneralLedgerPage() {
     return (
         <Container>
             <PageTitle title="General Journal" />
-            <GeneralJournalEntry entry={data} />
-            <GeneralJournalEntry entry={data} />
-            <GeneralJournalEntry entry={data} />
-            <GeneralJournalEntry entry={data} />
+            {transactionId ? (
+                <GeneralJournalEntry entry={data} />
+            ) : (
+                <>
+                    <GeneralJournalEntry entry={data} />
+                    <GeneralJournalEntry entry={data} />
+                    <GeneralJournalEntry entry={data} />
+                    <GeneralJournalEntry entry={data} />
+                </>
+            )}
         </Container>
     );
 }
