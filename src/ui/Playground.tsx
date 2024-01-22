@@ -1,15 +1,18 @@
+import GeneralJournalEntryPage from "@/features/general-journal/GeneralJournalEntryPage";
+import GeneralJournalPage from "@/features/general-journal/GeneralJournalPage";
+import { useState } from "react";
 import styled from "styled-components";
 
 const ContainerParent = styled.main`
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: center;
+    justify-content: center; */
 `;
 const Container = styled.div`
-    display: flex;
+    /* display: flex; */
 
-    flex-direction: column;
+    /* flex-direction: column;
     background-color: aqua;
     justify-content: center;
     align-items: center;
@@ -28,22 +31,35 @@ const Container = styled.div`
         text-align: center;
         flex-grow: 1;
         background-color: beige;
+    } */
+
+    & p {
+        height: 4rem;
     }
 `;
 
 export default function Playground(params) {
+    const [items, setItems] = useState(["today"]);
+
+    const loadMore = () => {
+        setItems((prev) => {
+            return [...prev, new Date().toDateString()];
+        });
+    };
     return (
         <ContainerParent>
-            <Container>
-                <p>step1</p>
-                <p>step2</p>
-                <p>step3</p>
-            </Container>
-            <Container>
-                <p>step1</p>
-                <p>step2</p>
-                <p>step3</p>
-            </Container>
+            <button onClick={loadMore}>Load more</button>
+            {items.map((item, index) => (
+                <p>
+                    Date&Time {item}{" "}
+                    {index % 5 == 0 && (
+                        <>
+                            {" "}
+                            <button onClick={loadMore}>Load more</button>
+                        </>
+                    )}
+                </p>
+            ))}
         </ContainerParent>
     );
 }

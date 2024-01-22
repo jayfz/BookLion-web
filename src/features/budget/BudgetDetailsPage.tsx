@@ -1,6 +1,8 @@
 import BudgetDetailsCard from "@/features/budget/BudgetDetailsCard";
+import useBudget from "@/features/budget/useBudget";
 import { BudgetDetails } from "@/types/account";
 import PageTitle from "@/ui/PageTitle";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.article`
@@ -13,37 +15,17 @@ const Container = styled.article`
 `;
 
 export default function BudgetDetailsPage() {
-    const data: BudgetDetails = {
-        budgetId: "1",
-        accountNumber: "50001",
-        name: "Recargas de wom",
-        amount: "18600.00",
-        spending: [
-            {
-                month: "december",
-                spentAmount: "17300.00",
-            },
-            {
-                month: "november",
-                spentAmount: "5600.00",
-            },
-            {
-                month: "october",
-                spentAmount: "16300.00",
-            },
-            {
-                month: "september",
-                spentAmount: "0.01",
-            },
-        ],
-    };
-
+    const { budgetId } = useParams();
+    const { isError, isPending, budget } = useBudget(budgetId);
     return (
         <Container>
             <PageTitle title="Budget details" />
-            <BudgetDetailsCard budgetDetails={data} />
-            <BudgetDetailsCard budgetDetails={data} />
-            <BudgetDetailsCard budgetDetails={data} />
+
+            {isPending || !budget ? (
+                <p>Loading...</p>
+            ) : (
+                <BudgetDetailsCard budgetDetails={budget} key={budget?.budgetId} />
+            )}
         </Container>
     );
 }

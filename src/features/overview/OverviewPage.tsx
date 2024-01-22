@@ -1,4 +1,5 @@
 import OverviewAccount from "@/features/overview/OverviewAccount";
+import useAccountOverview from "@/features/overview/useAccountOverview";
 import PageTitle from "@/ui/PageTitle";
 import styled from "styled-components";
 
@@ -11,7 +12,7 @@ const Container = styled.div`
 `;
 
 export default function OverviewPage() {
-    const accountAsset = {
+    /* const accountAsset = {
         type: "ASSETS" as const,
         transactionCount: 44,
         dateLastTransaction: new Date(),
@@ -48,31 +49,25 @@ export default function OverviewPage() {
         dateLastTransaction: new Date(),
         balance: "1467721.22",
         variation: "3.88",
-    };
-
+    }; */
+    const { isPending, accountsOverview } = useAccountOverview();
     return (
         <Container>
-            <PageTitle title="Account overview" />
-            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
-            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
-            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
-            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
-            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
-            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
-            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
-            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
-            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
-            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
-            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
-            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
-            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
-            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
-            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
-            <OverviewAccount account={accountAsset} to="/dashboard/overview/assets" />
-            <OverviewAccount account={accountLiability} to="/dashboard/overview/liabilities" />
-            <OverviewAccount account={accountEquity} to="/dashboard/overview/equity" />
-            <OverviewAccount account={accountRevenue} to="/dashboard/overview/revenue" />
-            <OverviewAccount account={accountExpenses} to="/dashboard/overview/expenses" />
+            {isPending ? (
+                <PageTitle title="Loading..."></PageTitle>
+            ) : (
+                <>
+                    {accountsOverview?.map((row) => {
+                        return (
+                            <OverviewAccount
+                                key={row.type}
+                                account={row}
+                                to={`/dashboard/overview/${row.type.toLowerCase()}`}
+                            />
+                        );
+                    })}
+                </>
+            )}
         </Container>
     );
 }

@@ -1,11 +1,11 @@
-import { BasicLedgerEntry, LedgerEntry } from "@/types/account";
-
 const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
 });
 
-export function formatDate(date: Date, formatStyle: "short" | "shorter") {
+export function formatDate(rawdate: string, formatStyle: "short" | "shorter") {
+    const date = new Date(rawdate);
+
     if (formatStyle == "short") {
         const month = date.toLocaleString("default", { month: "short" });
         const day = date.getDate();

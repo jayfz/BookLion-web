@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [react(), tsconfigPaths()],
     server: {
         proxy: {
-            "/auth/login": {
+            "/api": {
                 target: "http://localhost:8080",
                 changeOrigin: true,
                 secure: false,

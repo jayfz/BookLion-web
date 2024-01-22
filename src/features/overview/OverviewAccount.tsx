@@ -9,16 +9,8 @@ import { formatCurrency, formatDate, formatVariation } from "@/utils/formatters"
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { AccountType } from "@/types/account";
+import { AccountOverview, AccountType } from "@/types/account";
 import { checkIsOutcomeNegative } from "@/utils/helpers";
-
-type AccountOverview = {
-    type: AccountType;
-    transactionCount: number;
-    dateLastTransaction: Date;
-    balance: string;
-    variation: string;
-};
 
 type OverviewAccountProps = {
     account: AccountOverview;

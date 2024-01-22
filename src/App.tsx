@@ -4,6 +4,7 @@ import ProtectedRoute from "@/auth/ProtectedRoute";
 import { AppProvider } from "@/context/AppContext";
 import BudgetDetailsPage from "@/features/budget/BudgetDetailsPage";
 import BudgetOverviewPage from "@/features/budget/BudgetsOverviewPage";
+import GeneralJournalEntryPage from "@/features/general-journal/GeneralJournalEntryPage";
 import GeneralJournalPage from "@/features/general-journal/GeneralJournalPage";
 import GeneralLedgerPage from "@/features/general-ledger/GeneralLedgerPage";
 import OverviewDetailsPage from "@/features/overview/OverviewDetailsPage";
@@ -64,8 +65,13 @@ const applicationRouter = createBrowserRouter([
                 element: <GeneralLedgerPage />,
             },
             {
-                path: "/dashboard/general-journal/:transactionId?",
+                path: "/dashboard/general-journal",
                 element: <GeneralJournalPage />,
+            },
+
+            {
+                path: "/dashboard/general-journal/:transactionId",
+                element: <GeneralJournalEntryPage />,
             },
             {
                 path: "/dashboard/budgets",

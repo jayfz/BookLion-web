@@ -44,7 +44,7 @@ export default function BudgetCard({ budget }: BudgetCardProps) {
         <Container as={Link} to={`/dashboard/budgets/${budget.id}`}>
             <p>{budget.accountNumber}</p>
             <BudgetInfo>
-                <p>{budget.name}</p>
+                <p>{budget.description}</p>
                 <BudgetProgressBar progress={progress} />
             </BudgetInfo>
             <BudgetAmounts>

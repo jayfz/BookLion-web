@@ -1,9 +1,10 @@
 import { AccountType, JournalEntry } from "@/types/account";
 import { formatCurrency, formatDate } from "@/utils/formatters";
 import { isTransactionNegative } from "@/utils/helpers";
+import { ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
-type GeneralJournalEntry = {
+type GeneralJournalEntryProps = {
     entry: JournalEntry;
 };
 
@@ -71,34 +72,53 @@ function checkOutcome(amount: string, isNegative: boolean) {
 
 //todo: give color to accountNumber
 
-export default function GeneralJournalEntry({ entry }: GeneralJournalEntry) {
+const generalJournalEntry = (props: GeneralJournalEntryProps, ref: ForwardedRef<HTMLElement>) => {
+    const entry = props.entry;
+
     const dateFormat = "short" as const;
 
     return (
-        <Container>
+        <Container ref={ref}>
             <TransactionHeader>
-                <p>{formatDate(entry.date, dateFormat)}</p>
+                <p>{formatDate(entry.createdAt, dateFormat)}</p>
                 <p>Debits</p>
                 <p>Credits</p>
             </TransactionHeader>
             <TransactionBody>
-                {entry.ledgerEntries.map((ledgerEntry) => {
+                {entry.lines.map((ledgerEntry) => {
                     return (
-                        <TransactionLine key={ledgerEntry.accountNumber} $accountType={ledgerEntry.accountType}>
+                        <TransactionLine
+                            key={ledgerEntry.account.number}
+                            $accountType={ledgerEntry.account.accountType}
+                        >
                             <div>
-                                <p>{ledgerEntry.accountName}</p>
-                                <p>({ledgerEntry.accountNumber})</p>
+                                <p>{ledgerEntry.account.name}</p>
+                                <p>({ledgerEntry.account.number})</p>
                             </div>
 
                             <TransactionAmount
-                                $outcome={checkOutcome(ledgerEntry.debits, isTransactionNegative(ledgerEntry))}
+                                $outcome={checkOutcome(
+                                    ledgerEntry.debitAmount,
+                                    isTransactionNegative(
+                                        ledgerEntry.account.accountType,
+                                        ledgerEntry.creditAmount,
+                                        ledgerEntry.creditAmount,
+                                    ),
+                                )}
                             >
-                                {formatCurrency(ledgerEntry.debits, "shortest")}
+                                {formatCurrency(ledgerEntry.debitAmount, "shortest")}
                             </TransactionAmount>
                             <TransactionAmount
-                                $outcome={checkOutcome(ledgerEntry.credits, isTransactionNegative(ledgerEntry))}
+                                $outcome={checkOutcome(
+                                    ledgerEntry.creditAmount,
+                                    isTransactionNegative(
+                                        ledgerEntry.account.accountType,
+                                        ledgerEntry.creditAmount,
+                                        ledgerEntry.debitAmount,
+                                    ),
+                                )}
                             >
-                                {formatCurrency(ledgerEntry.credits, "shortest")}
+                                {formatCurrency(ledgerEntry.creditAmount, "shortest")}
                             </TransactionAmount>
                         </TransactionLine>
                     );
@@ -108,4 +128,6 @@ export default function GeneralJournalEntry({ entry }: GeneralJournalEntry) {
             <p>{entry.description}</p>
         </Container>
     );
-}
+};
+
+export const GeneralJournalEntry = forwardRef<HTMLElement, GeneralJournalEntryProps>(generalJournalEntry);

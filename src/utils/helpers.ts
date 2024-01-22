@@ -17,14 +17,14 @@ export function checkIsOutcomeNegative(accountType: AccountType, isDownwardsTren
     }
 }
 
-export function isTransactionNegative(entry: LedgerEntry | BasicLedgerEntry) {
-    switch (entry.accountType) {
+export function isTransactionNegative(accountType: AccountType, creditAmount: string, debitAmount: string) {
+    switch (accountType) {
         case "ASSETS":
         case "LIABILITIES":
         case "EQUITY":
-            return entry.credits != "0.00";
+            return creditAmount != "0.00";
         case "EXPENSES":
         case "REVENUE":
-            return entry.debits != "0.00";
+            return debitAmount != "0.00";
     }
 }

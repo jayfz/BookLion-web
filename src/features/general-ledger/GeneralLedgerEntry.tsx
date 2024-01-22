@@ -40,7 +40,7 @@ const Container = styled.article<{ $isNegativeAmount: boolean }>`
 export default function GeneralLedgerEntry({ ledgerEntry }: GeneralLedgerEntryProps) {
     const transactionAmount = ledgerEntry.debits == "0.00" ? ledgerEntry.credits : ledgerEntry.debits;
     const formattedAmount = formatCurrency(transactionAmount, "shortest");
-    const isNegativeAmount = isTransactionNegative(ledgerEntry);
+    const isNegativeAmount = isTransactionNegative(ledgerEntry.accountType, ledgerEntry.credits, ledgerEntry.debits);
     return (
         <Container
             $isNegativeAmount={isNegativeAmount}

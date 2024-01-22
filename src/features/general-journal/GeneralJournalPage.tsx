@@ -1,9 +1,11 @@
-import GeneralJournalEntry from "@/features/general-journal/GeneralJournalEntry";
+import { GeneralJournalEntry } from "@/features/general-journal/GeneralJournalEntry";
+import useJournalEntries from "@/features/general-journal/useJournalEntries";
 import PageTitle from "@/ui/PageTitle";
-import { useParams } from "react-router-dom";
+import { useIntersection } from "@mantine/hooks";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
-const Container = styled.article`
+export const Container = styled.article`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -11,50 +13,38 @@ const Container = styled.article`
     padding-top: 0.5rem;
     overflow-y: scroll;
 `;
+export default function GeneralJournalPage() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { journalEntries, isFetchingNextPage, fetchNextPage } = useJournalEntries();
+    const { ref, entry } = useIntersection({
+        // root: lastJournalEntryRef.current,
+        threshold: 1,
+    });
 
-export default function GeneralLedgerPage() {
-    const { transactionId } = useParams();
-
-    const data = {
-        date: new Date(),
-        description: "Paying Netflix's montly fee",
-        ledgerEntries: [
-            {
-                accountType: "ASSETS" as const,
-                accountNumber: "10001",
-                accountName: "Savings account",
-                debits: "0.00",
-                credits: "13414322.55",
-            },
-            {
-                accountType: "EXPENSES" as const,
-                accountNumber: "50001",
-                accountName: "Netflix",
-                debits: "10976.41",
-                credits: "0.00",
-            },
-            {
-                accountType: "EXPENSES" as const,
-                accountNumber: "50002",
-                accountName: "Dian IVA",
-                debits: "3742.17",
-                credits: "0.00",
-            },
-        ],
-    };
-
+    useEffect(() => {
+        if (entry?.isIntersecting) fetchNextPage();
+    }, [entry, fetchNextPage]);
     return (
         <Container>
-            <PageTitle title="General Journal" />
-            {transactionId ? (
-                <GeneralJournalEntry entry={data} />
+            {/* <PageTitle title="General Journal" /> */}
+            {isFetchingNextPage ? (
+                <p>Loading...</p>
             ) : (
-                <>
-                    <GeneralJournalEntry entry={data} />
-                    <GeneralJournalEntry entry={data} />
-                    <GeneralJournalEntry entry={data} />
-                    <GeneralJournalEntry entry={data} />
-                </>
+                <div ref={containerRef}>
+                    {journalEntries?.pages
+                        .flatMap((page) => page.data)
+                        .map((item, index, collection) => {
+                            return collection.length - 1 == index ? (
+                                <GeneralJournalEntry
+                                    entry={item}
+                                    key={item.id}
+                                    ref={collection.length - 1 == index ? ref : undefined}
+                                />
+                            ) : (
+                                <GeneralJournalEntry entry={item} key={item.id} />
+                            );
+                        })}
+                </div>
             )}
         </Container>
     );

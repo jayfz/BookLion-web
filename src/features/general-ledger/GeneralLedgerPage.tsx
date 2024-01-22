@@ -1,4 +1,5 @@
 import GeneralLedgerEntry from "@/features/general-ledger/GeneralLedgerEntry";
+import useGeneraLedgerForAccount from "@/features/general-ledger/useGeneraLedgerForAccount";
 import PageTitle from "@/ui/PageTitle";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -15,7 +16,7 @@ const Container = styled.article`
 export default function GeneralLedgerPage() {
     const { accountId } = useParams();
 
-    const data = [
+    /* const data = [
         {
             date: new Date(),
             description: "Paying Netflix's montly fee",
@@ -40,23 +41,20 @@ export default function GeneralLedgerPage() {
             credits: "16000.33",
             transactionId: "4124",
         },
-    ];
-
+    ]; */
+    const { generalLedgerEntries, isFetching, isPending } = useGeneraLedgerForAccount(accountId ?? "");
     return (
         <Container>
-            <PageTitle title={`Gen. Ledger (${accountId})`} />
-            <GeneralLedgerEntry ledgerEntry={data[0]} />
-            <GeneralLedgerEntry ledgerEntry={data[1]} />
-            <GeneralLedgerEntry ledgerEntry={data[2]} />
-            <GeneralLedgerEntry ledgerEntry={data[0]} />
-            <GeneralLedgerEntry ledgerEntry={data[1]} />
-            <GeneralLedgerEntry ledgerEntry={data[2]} />
-            <GeneralLedgerEntry ledgerEntry={data[0]} />
-            <GeneralLedgerEntry ledgerEntry={data[1]} />
-            <GeneralLedgerEntry ledgerEntry={data[2]} />
-            <GeneralLedgerEntry ledgerEntry={data[0]} />
-            <GeneralLedgerEntry ledgerEntry={data[1]} />
-            <GeneralLedgerEntry ledgerEntry={data[2]} />
+            {isFetching ? (
+                <PageTitle title="Loading..." />
+            ) : (
+                <>
+                    <PageTitle title={`Gen. Ledger (${accountId})`} />
+                    {generalLedgerEntries?.map((item) => {
+                        return <GeneralLedgerEntry key={item.transactionId} ledgerEntry={item} />;
+                    })}
+                </>
+            )}
         </Container>
     );
 }

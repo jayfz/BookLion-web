@@ -1,4 +1,5 @@
 import BudgetCard from "@/features/budget/BudgetCard";
+import useBudgets from "@/features/budget/useBudgets";
 import { Budget } from "@/types/account";
 import PageTitle from "@/ui/PageTitle";
 import styled from "styled-components";
@@ -13,45 +14,19 @@ const Container = styled.article`
 `;
 
 export default function BudgetOverviewPage() {
-    const data: Budget[] = [
-        {
-            id: "1",
-            accountNumber: "50001",
-            name: "Recargas de wom",
-            amount: "20000000.00",
-            spentSoFar: "6000000.00",
-        },
-        {
-            id: "2",
-            accountNumber: "50002",
-            name: "Transmetro recargas abc del toro",
-            amount: "16000.00",
-            spentSoFar: "18600.00",
-        },
-        {
-            id: "3",
-            accountNumber: "50003",
-            name: "Dulces para Isa",
-            amount: "14300.00",
-            spentSoFar: "11322.00",
-        },
-    ];
-
+    const { isError, isPending, budgets } = useBudgets();
     return (
         <Container>
             <PageTitle title="Budgets overview" />
-            <BudgetCard budget={data[0]} />
-            <BudgetCard budget={data[1]} />
-            <BudgetCard budget={data[2]} />
-            <BudgetCard budget={data[0]} />
-            <BudgetCard budget={data[1]} />
-            <BudgetCard budget={data[2]} />
-            <BudgetCard budget={data[0]} />
-            <BudgetCard budget={data[1]} />
-            <BudgetCard budget={data[2]} />
-            <BudgetCard budget={data[0]} />
-            <BudgetCard budget={data[1]} />
-            <BudgetCard budget={data[2]} />
+            {isPending || !budgets ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    {budgets.map((budget) => {
+                        return <BudgetCard key={budget.id} budget={budget} />;
+                    })}
+                </>
+            )}
         </Container>
     );
 }

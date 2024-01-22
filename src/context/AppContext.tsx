@@ -1,5 +1,6 @@
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { ReactNode, createContext, useContext, useState } from "react";
+import axios from "@/service/AxiosDefaults";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 type AppContextContextType = {
     lightMode: boolean;
@@ -32,6 +33,7 @@ export function AppProvider({ children }: AppProviderProps) {
     const [lightMode, setLightMode] = useState(true);
     const [globalLoadingCounter, setGlobalLoadingCounter] = useState(0);
 
+    axios.defaults.headers.common["Authorization"] = user != null ? `Bearer ${user?.token}` : "";
     const login = (token: string) => {
         const user: User = {
             username: "johanntheboss",
@@ -44,6 +46,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
     const logout = () => {
         setUser(null);
+        // axios.defaults.headers.common["Authorization"] = "";
     };
 
     const toggleLightMode = () => {
@@ -67,6 +70,12 @@ export function AppProvider({ children }: AppProviderProps) {
         increaseLoadingCounter,
         decreaseLoadingCounter,
     };
+
+    useEffect(() => {
+        console.log("adjusting token");
+
+        axios.defaults.headers.common["Authorization"] = user?.token != undefined ? `Bearer ${user?.token}` : "";
+    }, [user]);
 
     return <AppContext.Provider value={providerValue}>{children}</AppContext.Provider>;
 }

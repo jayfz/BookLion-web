@@ -10,4 +10,6 @@ export default function Logout() {
         logout();
         navigate("/login");
     }, [logout, navigate]);
+
+    return null;
 }

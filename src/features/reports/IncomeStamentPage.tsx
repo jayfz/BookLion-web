@@ -1,5 +1,6 @@
 import ReportSection from "@/features/reports/ReportSection";
 import { Title, TotalAmount } from "@/features/reports/ReportUIElements";
+import useIncomeStatementReport from "@/features/reports/useIncomeStatementReport";
 import { IncomeStament } from "@/types/account";
 import DateFilter from "@/ui/DateFilter";
 import { formatCurrency } from "@/utils/formatters";
@@ -67,8 +68,12 @@ export default function IncomeStamentPage() {
     let totalRevenue = new BigNumber("0.00");
     let totalExpenses = new BigNumber("0.00");
 
-    data.revenue.forEach((s) => (totalRevenue = totalRevenue.plus(s.balance)));
-    data.expenses.forEach((s) => (totalExpenses = totalExpenses.plus(s.balance)));
+    const { isError, isPending, incomeStatementReport } = useIncomeStatementReport();
+
+    if (incomeStatementReport) {
+        incomeStatementReport.revenue.forEach((s) => (totalRevenue = totalRevenue.plus(s.balance)));
+        incomeStatementReport.expenses.forEach((s) => (totalExpenses = totalExpenses.plus(s.balance)));
+    }
 
     const profitLoss = totalRevenue.minus(totalExpenses);
 
@@ -78,12 +83,18 @@ export default function IncomeStamentPage() {
                 <DateFilter />
             </div>
             <Title>Income Statement</Title>
-            <ReportSection accountName={"revenue"} accountSummary={data.revenue} />
-            <ReportSection accountName={"expenses"} accountSummary={data.expenses} />
-            <TotalAmount>
-                <p>Profit/Loss</p>
-                <p> {formatCurrency(profitLoss.toFixed(2).toString(), "shortest")}</p>
-            </TotalAmount>
+            {isPending || !incomeStatementReport ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    <ReportSection accountName={"revenue"} accountSummary={incomeStatementReport.revenue} />
+                    <ReportSection accountName={"expenses"} accountSummary={incomeStatementReport.expenses} />
+                    <TotalAmount>
+                        <p>Profit/Loss</p>
+                        <p> {formatCurrency(profitLoss.toFixed(2).toString(), "shortest")}</p>
+                    </TotalAmount>
+                </>
+            )}
         </Container>
     );
 }
