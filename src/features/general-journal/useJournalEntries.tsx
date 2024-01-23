@@ -1,5 +1,5 @@
 import { getJournalEntries } from "@/service/ApiTransactions";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const defaultPageNumber = 0;
 async function retrieveJournalEntries({ pageParam = defaultPageNumber }) {
@@ -7,20 +7,22 @@ async function retrieveJournalEntries({ pageParam = defaultPageNumber }) {
 }
 export default function useJournalEntries() {
     const {
+        isPending,
         data: journalEntries,
         fetchNextPage,
         isFetchingNextPage,
+        hasNextPage,
     } = useInfiniteQuery({
         queryKey: ["transactions"],
         queryFn: retrieveJournalEntries,
         initialPageParam: 0,
-        getNextPageParam: (_, pages) => {
-            if (_.page.last) {
-                return pages.length - 1;
+        getNextPageParam: (lastPage, allPages) => {
+            if (lastPage.page.last) {
+                return undefined;
             }
-            return pages.length;
+            return lastPage.page.number + 1;
         },
     });
 
-    return { journalEntries, fetchNextPage, isFetchingNextPage };
+    return { hasNextPage, isPending, journalEntries, fetchNextPage, isFetchingNextPage };
 }

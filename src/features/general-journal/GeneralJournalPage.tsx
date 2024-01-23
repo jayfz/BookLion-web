@@ -2,7 +2,8 @@ import { GeneralJournalEntry } from "@/features/general-journal/GeneralJournalEn
 import useJournalEntries from "@/features/general-journal/useJournalEntries";
 import PageTitle from "@/ui/PageTitle";
 import { useIntersection } from "@mantine/hooks";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import styled from "styled-components";
 
 export const Container = styled.article`
@@ -14,38 +15,35 @@ export const Container = styled.article`
     overflow-y: scroll;
 `;
 export default function GeneralJournalPage() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { journalEntries, isFetchingNextPage, fetchNextPage } = useJournalEntries();
+    const { hasNextPage, isPending, journalEntries, isFetchingNextPage, fetchNextPage } = useJournalEntries();
+
     const { ref, entry } = useIntersection({
-        // root: lastJournalEntryRef.current,
         threshold: 1,
     });
 
     useEffect(() => {
-        if (entry?.isIntersecting) fetchNextPage();
-    }, [entry, fetchNextPage]);
+        if (entry?.isIntersecting && hasNextPage) fetchNextPage();
+    }, [entry, fetchNextPage, hasNextPage]);
+
+    useEffect(() => {
+        let toastId: null | string = null;
+        if (isFetchingNextPage || isPending) toastId = toast.loading("Loading");
+        return () => toast.dismiss(toastId || "");
+    }, [isFetchingNextPage, isPending]);
     return (
         <Container>
-            {/* <PageTitle title="General Journal" /> */}
-            {isFetchingNextPage ? (
-                <p>Loading...</p>
-            ) : (
-                <div ref={containerRef}>
-                    {journalEntries?.pages
-                        .flatMap((page) => page.data)
-                        .map((item, index, collection) => {
-                            return collection.length - 1 == index ? (
-                                <GeneralJournalEntry
-                                    entry={item}
-                                    key={item.id}
-                                    ref={collection.length - 1 == index ? ref : undefined}
-                                />
-                            ) : (
-                                <GeneralJournalEntry entry={item} key={item.id} />
-                            );
-                        })}
-                </div>
-            )}
+            <PageTitle title="General Journal" />
+            {journalEntries?.pages
+                .flatMap((page) => page.data)
+                .map((item, index, collection) => (
+                    <GeneralJournalEntry
+                        entry={item}
+                        key={item.id}
+                        ref={collection.length - 1 == index ? ref : undefined}
+                    />
+                ))}
+            {!hasNextPage && journalEntries && <p>No more data available</p>}
+            {!hasNextPage && !journalEntries && !isPending && <p>No data available</p>}
         </Container>
     );
 }

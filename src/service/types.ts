@@ -8,6 +8,7 @@ type ResponsePage = {
     totalPages: number;
     first: boolean;
     last: boolean;
+    number: number;
     order: "string";
 };
 export type PagedAppResponse<T> = AppResponse<T> & {
