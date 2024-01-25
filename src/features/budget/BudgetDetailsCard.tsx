@@ -10,7 +10,7 @@ type BudgetDetailsCard = {
 
 const Container = styled.article`
     display: grid;
-    grid-template-columns: min-content minmax(auto, 50%) auto;
+    grid-template-columns: 20% minmax(auto, 50%) auto;
     gap: 0.25rem;
     background-color: white;
     padding: 0.5rem;
@@ -33,6 +33,7 @@ const BudgetName = styled.p`
 
 const AccountNumber = styled.p`
     font-weight: 500;
+    text-align: center;
 `;
 
 const Month = styled.p`

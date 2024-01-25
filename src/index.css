@@ -64,7 +64,6 @@ html,
 
 
     color: var(--bl-main-text-color);
-    background-color: var(--bl-base-background-color);
 }
 
 
@@ -76,6 +75,7 @@ html,
 body {
     margin: 0; /* 1 */
     line-height: inherit; /* 2 */
+    background-color: var(--bl-base-background-color);
 }
 
 html,body, #root{

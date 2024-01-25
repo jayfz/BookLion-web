@@ -19,15 +19,9 @@ export default function GeneralJournalEntryPage() {
 
     return (
         <Container>
-            <PageTitle title={`General Journal #${transactionId}`} />
+            {isPending ? <PageTitle title="Loading..." /> : <PageTitle title={`General Journal #${transactionId}`} />}
 
-            {isFetching ? (
-                <p>Loading...</p>
-            ) : journalEntry ? (
-                <GeneralJournalEntry entry={journalEntry} />
-            ) : (
-                <p>An error occured</p>
-            )}
+            {journalEntry && <GeneralJournalEntry entry={journalEntry} />}
         </Container>
     );
 }

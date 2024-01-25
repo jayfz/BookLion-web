@@ -16,15 +16,34 @@ const Container = styled.div`
     background-color: white;
     border-radius: 0.5rem;
     align-items: center;
+
+    & > svg {
+        /* view-transition-name: logo-transition; */
+    }
 `;
+
+function createViewTransition(callback: () => void) {
+    if (!document.startViewTransition) {
+        callback();
+        return;
+    }
+    callback();
+    //document.startViewTransition(callback);
+}
 
 const HamburgerButton = styled.button.attrs({ type: "button" })``;
 
 export default function MobileMenuBar() {
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
-    const openDrawer = () => setIsDrawerVisible(true);
-    const closeDrawer = () => setIsDrawerVisible(false);
+    const openDrawer = () => createViewTransition(() => setIsDrawerVisible(true));
+    const closeDrawer = () => createViewTransition(() => setIsDrawerVisible(false));
+
+    /* const openDrawer = () => {
+        console.log("clicked");
+        setIsDrawerVisible(true);
+    };
+    const closeDrawer = () => setIsDrawerVisible(false); */
 
     return (
         <>

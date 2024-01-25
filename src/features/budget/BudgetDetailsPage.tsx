@@ -19,12 +19,13 @@ export default function BudgetDetailsPage() {
     const { isError, isPending, budget } = useBudget(budgetId);
     return (
         <Container>
-            <PageTitle title="Budget details" />
-
             {isPending || !budget ? (
-                <p>Loading...</p>
+                <PageTitle title="Loading..." />
             ) : (
-                <BudgetDetailsCard budgetDetails={budget} key={budget?.budgetId} />
+                <>
+                    <PageTitle title="Budget details" />
+                    <BudgetDetailsCard budgetDetails={budget} key={budget?.budgetId} />
+                </>
             )}
         </Container>
     );

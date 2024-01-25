@@ -1,6 +1,6 @@
 import axios from "@/service/AxiosDefaults";
 import { AppResponse, PagedAppResponse } from "@/service/types";
-import { BalanceSheet, IncomeStament, JournalEntry, LedgerEntry } from "@/types/account";
+import { BalanceSheet, CreateTransactionInput, IncomeStament, JournalEntry, LedgerEntry } from "@/types/account";
 
 const defaultDate = "2023-12-31T23:59:58";
 
@@ -33,6 +33,12 @@ export async function getBalanceSheetReport() {
 
 export async function getIncomeStatementReport() {
     const { data } = await axios.get<AppResponse<IncomeStament>>(`/transactions/income-statement?from=${defaultDate}`);
+
+    return data.data;
+}
+
+export async function postTransaction(transaction: CreateTransactionInput) {
+    const { data } = await axios.post<AppResponse<JournalEntry>>(`/transactions`, transaction);
 
     return data.data;
 }

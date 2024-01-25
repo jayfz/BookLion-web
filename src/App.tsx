@@ -7,6 +7,10 @@ import BudgetOverviewPage from "@/features/budget/BudgetsOverviewPage";
 import GeneralJournalEntryPage from "@/features/general-journal/GeneralJournalEntryPage";
 import GeneralJournalPage from "@/features/general-journal/GeneralJournalPage";
 import GeneralLedgerPage from "@/features/general-ledger/GeneralLedgerPage";
+import CreateAccountPage from "@/features/management/CreateAccountPage";
+import CreateBudgetPage from "@/features/management/CreateBudgetPage";
+import CreateTransactionPage from "@/features/management/CreateTransactionPage";
+import ManagementPage from "@/features/management/ManagementPage";
 import OverviewDetailsPage from "@/features/overview/OverviewDetailsPage";
 import OverviewPage from "@/features/overview/OverviewPage";
 import BalanceSheetPage from "@/features/reports/BalanceSheetPage";
@@ -88,6 +92,22 @@ const applicationRouter = createBrowserRouter([
             {
                 path: "/dashboard/reports/income-statement",
                 element: <IncomeStamentPage />,
+            },
+            {
+                path: "/dashboard/management",
+                element: <ManagementPage />,
+            },
+            {
+                path: "/dashboard/management/add-account",
+                element: <CreateAccountPage />,
+            },
+            {
+                path: "/dashboard/management/create-budget",
+                element: <CreateBudgetPage />,
+            },
+            {
+                path: "/dashboard/management/record-transaction",
+                element: <CreateTransactionPage />,
             },
             {
                 path: "/logout",

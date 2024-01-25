@@ -21,7 +21,7 @@ export default function OverviewDetailsPage() {
     return (
         <Container>
             {isPending ? (
-                <PageTitle title={`${accountType} Overview`} />
+                <PageTitle title={`Loading...`} />
             ) : (
                 <>
                     <PageTitle title={`${accountType} Overview`} />

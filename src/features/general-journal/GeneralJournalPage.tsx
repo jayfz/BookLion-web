@@ -32,7 +32,7 @@ export default function GeneralJournalPage() {
     }, [isFetchingNextPage, isPending]);
     return (
         <Container>
-            <PageTitle title="General Journal" />
+            {isPending ? <PageTitle title="Loading..." /> : <PageTitle title="General Journal" />}
             {journalEntries?.pages
                 .flatMap((page) => page.data)
                 .map((item, index, collection) => (
@@ -42,7 +42,7 @@ export default function GeneralJournalPage() {
                         ref={collection.length - 1 == index ? ref : undefined}
                     />
                 ))}
-            {!hasNextPage && journalEntries && <p>No more data available</p>}
+            {!hasNextPage && journalEntries && <p style={{ textAlign: "center" }}>All caught up!</p>}
             {!hasNextPage && !journalEntries && !isPending && <p>No data available</p>}
         </Container>
     );

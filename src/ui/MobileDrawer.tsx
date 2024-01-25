@@ -10,6 +10,7 @@ import {
     IoReorderThree,
     IoChevronDownOutline,
     IoCloseOutline,
+    IoAccessibilityOutline,
 } from "react-icons/io5";
 
 const DrawerOverlay = styled.div<{ $isVisible: boolean }>`
@@ -19,6 +20,7 @@ const DrawerOverlay = styled.div<{ $isVisible: boolean }>`
     position: absolute;
     transform: ${(props) => (!props.$isVisible ? "translate(-100%)" : "translate(0%)")};
     transition: transform 0.25s ease-out;
+    z-index: 1000;
 `;
 const DrawerContainer = styled.section`
     width: 80%;
@@ -51,6 +53,7 @@ const DrawerHeader = styled.header`
     & > svg {
         fill: white;
         size: 6rem;
+        /* view-transition-name: logo-transition; */
     }
     & > svg:nth-child(2) {
         align-self: center;
@@ -202,6 +205,11 @@ export default function MobileDrawer({ isVisible, closeDrawer }: MobileDrawerPro
                         <SimpleDrawerLink onClick={closeDrawer} to="/dashboard/general-journal">
                             <IoBookmarkOutline />
                             <span>General Journal</span>
+                        </SimpleDrawerLink>
+
+                        <SimpleDrawerLink onClick={closeDrawer} to="/dashboard/management">
+                            <IoAccessibilityOutline />
+                            <span>Management</span>
                         </SimpleDrawerLink>
 
                         <SimpleDrawerLink onClick={closeDrawer} to="/logout">

@@ -1,6 +1,8 @@
 import { useLogin } from "@/auth/useLogin";
 import BookLionQuicksandLightLogo from "@/ui/BookLionQuicksandLightLogo";
 import GoogleSvg from "@/ui/GoogleSvg";
+import InputBox from "@/ui/InputBox";
+import { Button } from "@radix-ui/themes";
 import { ChangeEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -44,26 +46,6 @@ const LoginBlock = styled.div<FlexContainer>`
 
     flex-direction: ${(props) => (props.$direction ? props.$direction : "column")};
     gap: ${(props) => (props.$gap ? props.$gap : "0.5rem")};
-`;
-
-const InputBox = styled.input`
-    width: 100%;
-    height: 3rem;
-    padding: 1rem;
-    background-color: var(--bl-input-background);
-    color: var(--bl-text-gray);
-    border-radius: 0.5rem;
-`;
-
-const Button = styled.button`
-    height: 3rem;
-    width: 100%;
-    border-radius: 0.5rem;
-    background: var(--bl-brand);
-    color: #fff;
-    font-size: 0.875rem;
-    font-weight: 700;
-    line-height: normal;
 `;
 
 const GoogleLoginButton = styled.button`

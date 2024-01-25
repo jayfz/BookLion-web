@@ -17,11 +17,11 @@ export default function BudgetOverviewPage() {
     const { isError, isPending, budgets } = useBudgets();
     return (
         <Container>
-            <PageTitle title="Budgets overview" />
             {isPending || !budgets ? (
-                <p>Loading...</p>
+                <PageTitle title="Loading..." />
             ) : (
                 <>
+                    <PageTitle title="Budgets overview" />
                     {budgets.map((budget) => {
                         return <BudgetCard key={budget.id} budget={budget} />;
                     })}

@@ -6,6 +6,11 @@ export type AccountOverview = {
     balance: string;
     variation: string;
 };
+
+export type CreateAccountInput = {
+    number: string;
+    name: string;
+};
 export type AccountOverviewDetails = {
     type: AccountType;
     transactionCount: number;
@@ -49,6 +54,11 @@ export type Budget = {
     spentSoFar: string;
 };
 
+export type CreateBudgetInput = {
+    amount: string;
+    description: string;
+};
+
 type Spending = {
     month: string;
     spentAmount: string;
@@ -74,4 +84,16 @@ export type BalanceSheet = {
 export type IncomeStament = {
     revenue: AccountSummary[];
     expenses: AccountSummary[];
+};
+
+export type CreateTransactionLineInput = {
+    creditAmount: string;
+    debitAmount: string;
+    accountId: string;
+};
+
+export type CreateTransactionInput = {
+    description: string;
+    createdAt: Date;
+    lines: CreateTransactionLineInput[];
 };
