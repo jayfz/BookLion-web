@@ -1,4 +1,4 @@
-import { AccountType, BasicLedgerEntry, LedgerEntry } from "@/types/account";
+import { AccountType } from "@/types/account";
 
 export function checkIsOutcomeNegative(accountType: AccountType, isDownwardsTrend: boolean) {
     switch (accountType) {

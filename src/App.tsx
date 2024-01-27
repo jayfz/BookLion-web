@@ -115,30 +115,6 @@ const applicationRouter = createBrowserRouter([
             },
 
             // {
-            //   path: "/accounts"
-            //   element: <ProtectedRoute>
-            //     <AccountsPage />
-            //   </ProtectedRoute>
-            // },
-            // {
-            //   path: "/journal"
-            //   element: <ProtectedRoute>
-            //     <JournalPage />
-            //   </ProtectedRoute>
-            // },
-            // {
-            //   path: "/balance-sheet"
-            //   element: <ProtectedRoute>
-            //     <BalancSheetPage />
-            //   </ProtectedRoute>
-            // },
-            // {
-            //   path: "/income-stament"
-            //   element: <ProtectedRoute>
-            //     <IncomeStamentPage />
-            //   </ProtectedRoute>
-            // },
-            // {
             //   path: "/terms-of-use",
             //   element: <TermsOfUse />,
             // },

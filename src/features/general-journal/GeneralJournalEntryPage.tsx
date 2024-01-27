@@ -15,7 +15,7 @@ const Container = styled.article`
 
 export default function GeneralJournalEntryPage() {
     const { transactionId } = useParams();
-    const { journalEntry, isError, isFetching, isPending } = useJournalEntry(transactionId ?? "");
+    const { journalEntry, isPending } = useJournalEntry(transactionId ?? "");
 
     return (
         <Container>

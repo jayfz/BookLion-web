@@ -1,9 +1,11 @@
 import useCreateTransaction from "@/features/management/useCreateTransaction";
+import useFindAccountsByNameAndAccountType from "@/features/management/useFindAccountsByNameAndType";
 import { CreateTransactionInput, CreateTransactionLineInput } from "@/types/account";
 import Button from "@/ui/Button";
 import InputBox from "@/ui/InputBox";
 import PageTitle from "@/ui/PageTitle";
-import { ChangeEvent, MouseEventHandler, ReactNode, useState } from "react";
+import { Show } from "@/ui/Show";
+import { ChangeEvent, MouseEventHandler, useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import styled from "styled-components";
 
@@ -14,6 +16,7 @@ const Container = styled.article`
     padding: 1rem;
     padding-top: 0.5rem;
     overflow-y: scroll;
+    height: 100%;
 `;
 
 const CreateTransactionForm = styled.form`
@@ -63,6 +66,26 @@ const TransactionLineGroupRow = styled.div`
     gap: 0.5rem;
 `;
 
+const QueryResultContext = styled.div`
+    position: relative;
+    z-index: 1;
+`;
+const QueryResults = styled.div`
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 2px solid var(--bl-base-background-color);
+`;
+const ResultItem = styled.div`
+    border: 2px solid var(--bl-base-background-color);
+    padding: 0.5rem;
+`;
+
 type TransactionLineInputProps = {
     removable: boolean;
     getTransactionLine: (key: number) => CreateTransactionLineInput;
@@ -70,16 +93,6 @@ type TransactionLineInputProps = {
     deleteTransactionLine: (key: number) => void;
     mapKey: number;
 };
-
-type ShowProps = {
-    when: boolean;
-    children: ReactNode;
-};
-function Show(props: ShowProps) {
-    if (props.when) return props.children;
-
-    return null;
-}
 
 function TransactionLineInput({
     removable,
@@ -89,12 +102,14 @@ function TransactionLineInput({
     mapKey,
 }: TransactionLineInputProps) {
     const line = getTransactionLine(mapKey);
+    const [accountName, setAccountName] = useState<string>("");
+    const [queryName, setQueryName] = useState<string>("");
 
-    console.log("created id", mapKey);
-
+    const { accountsFound } = useFindAccountsByNameAndAccountType(queryName, "all");
+    /* 
     const onAccountIdChange = (event: ChangeEvent<HTMLInputElement>) => {
         updateTransactionLine(mapKey, { ...line, accountId: event.target.value });
-    };
+    }; */
 
     const onDebitsChange = (event: ChangeEvent<HTMLInputElement>) => {
         updateTransactionLine(mapKey, { ...line, debitAmount: event.target.value });
@@ -112,13 +127,43 @@ function TransactionLineInput({
     return (
         <TransactionLineGroup>
             <label>Transaction line</label>
-            <InputBox
+            {/* <InputBox
                 placeholder="Account id"
                 type="text"
                 name={`accountId-${mapKey}`}
                 onChange={onAccountIdChange}
                 value={line.accountId}
+            /> */}
+            <InputBox
+                placeholder="Account name"
+                type="text"
+                name={`accountId-${mapKey}`}
+                onChange={(event) => {
+                    setAccountName(event.target.value);
+                    setQueryName(event.target.value);
+                }}
+                value={accountName}
             />
+            <Show when={accountsFound != undefined}>
+                <QueryResultContext>
+                    <QueryResults>
+                        {accountsFound?.map((account) => {
+                            return (
+                                <ResultItem
+                                    key={account.id}
+                                    onClick={() => {
+                                        setAccountName(account.name);
+                                        setQueryName("");
+                                        updateTransactionLine(mapKey, { ...line, accountId: account.id });
+                                    }}
+                                >
+                                    <span> {account.number}</span> <span>{account.name}</span>{" "}
+                                </ResultItem>
+                            );
+                        })}
+                    </QueryResults>
+                </QueryResultContext>
+            </Show>
             <TransactionLineGroupRow>
                 <InputBox
                     placeholder="Debits"
@@ -147,8 +192,9 @@ const empty: CreateTransactionLineInput = {
     creditAmount: "",
 };
 export default function CreateTransactionPage() {
+    const currentDate = new Date().toISOString().split("T")[0];
     const [description, setDescription] = useState("");
-    const [createdAt, setCreatedAt] = useState(new Date().toString());
+    const [createdAt, setCreatedAt] = useState(currentDate);
     const [nextAvailableId, setNextAvailableId] = useState(2);
     const [transactionLines, setTransactionLines] = useState(
         new Map<number, CreateTransactionLineInput>([
@@ -259,7 +305,7 @@ export default function CreateTransactionPage() {
                 />
                 <InputBox name="createdAt" type="date" value={createdAt} onChange={onCreatedAtChangeHandler} />
                 <Button disabled={isCreatingTransaction} onClick={onCreateTransactionClickHandler}>
-                    Add account
+                    Record Transaction
                 </Button>
             </CreateTransactionForm>
         </Container>

@@ -1,6 +1,5 @@
 import BudgetCard from "@/features/budget/BudgetCard";
 import useBudgets from "@/features/budget/useBudgets";
-import { Budget } from "@/types/account";
 import PageTitle from "@/ui/PageTitle";
 import styled from "styled-components";
 
@@ -14,7 +13,7 @@ const Container = styled.article`
 `;
 
 export default function BudgetOverviewPage() {
-    const { isError, isPending, budgets } = useBudgets();
+    const { isPending, budgets } = useBudgets();
     return (
         <Container>
             {isPending || !budgets ? (

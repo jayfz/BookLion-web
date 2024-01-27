@@ -27,7 +27,7 @@ export type LedgerEntry = {
     credits: string;
     transactionId: string;
 };
-type Account = {
+export type Account = {
     name: string;
     number: string;
     id: number;
@@ -89,7 +89,7 @@ export type IncomeStament = {
 export type CreateTransactionLineInput = {
     creditAmount: string;
     debitAmount: string;
-    accountId: string;
+    accountId: string | number;
 };
 
 export type CreateTransactionInput = {
@@ -97,3 +97,5 @@ export type CreateTransactionInput = {
     createdAt: Date;
     lines: CreateTransactionLineInput[];
 };
+
+export type AccountTypeSelectOptions = AccountType | "DEFAULT";

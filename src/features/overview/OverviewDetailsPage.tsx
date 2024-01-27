@@ -14,9 +14,9 @@ const Container = styled.div`
 `;
 
 export default function OverviewDetailsPage() {
-    const { pathname } = useLocation() as string;
+    const { pathname } = useLocation() as { pathname: string };
     const accountType = pathname.split("/").slice(-1).toString() ?? "Account";
-    const { isPending, isFetching, accountsOverviewDetails } = useAccountOverviewDetails();
+    const { isPending, accountsOverviewDetails } = useAccountOverviewDetails();
 
     return (
         <Container>

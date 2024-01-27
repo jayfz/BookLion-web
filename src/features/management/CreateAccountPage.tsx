@@ -1,7 +1,9 @@
 import useCreateAccount from "@/features/management/useCreateAccount";
+import useFindNextAccountNumber from "@/features/management/useFindNextAccountNumber";
+import { AccountTypeSelectOptions } from "@/types/account";
 import Button from "@/ui/Button";
 import InputBox from "@/ui/InputBox";
-import { MouseEventHandler, useRef } from "react";
+import { MouseEventHandler, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.article`
@@ -20,27 +22,28 @@ const CreateAccountForm = styled.form`
     border-radius: 0.5rem;
     flex-direction: column;
     gap: 0.5rem;
-    /* & > select {
+    & > select {
         padding: 0.5rem;
         background-color: var(--bl-base-background-color);
         border-radius: 0.5rem;
         width: 100%;
         height: 3rem;
-    } */
+    }
 `;
 
 export default function CreateAccountPage() {
+    const [accountType, setAccountType] = useState<AccountTypeSelectOptions>("DEFAULT");
     const accountRef = useRef<HTMLInputElement>(null);
-    const accountNumberRef = useRef<HTMLInputElement>(null);
+    const { isFindingNextAccountNumber, nextAccountNumber } = useFindNextAccountNumber(accountType);
 
     const clearFormOnSuccess = () => {
-        if (accountNumberRef.current) accountNumberRef.current.value = "";
         if (accountRef.current) accountRef.current.value = "";
+        setAccountType("DEFAULT");
     };
     const { createAccount, isCreatingAccount } = useCreateAccount(clearFormOnSuccess);
     const onAddAccountClick: MouseEventHandler = (event) => {
         event.preventDefault();
-        const accountNumber = accountNumberRef.current?.value;
+        const accountNumber = nextAccountNumber;
         const accountName = accountRef.current?.value;
 
         if (accountNumber && accountName) {
@@ -54,7 +57,24 @@ export default function CreateAccountPage() {
     return (
         <Container>
             <CreateAccountForm name="create-account">
-                <InputBox placeholder="Account number" type="text" name="accountNumber" ref={accountNumberRef} />
+                <select
+                    value={accountType}
+                    onChange={(e) => setAccountType(e.currentTarget.value as AccountTypeSelectOptions)}
+                >
+                    <option value={"DEFAULT"}>Select account type</option>
+                    <option value={"ASSETS"}>Asset</option>
+                    <option value={"LIABILITIES"}>Liability</option>
+                    <option value={"EQUITY"}>Equity</option>
+                    <option value={"REVENUE"}>Revenue</option>
+                    <option value={"EXPENSES"}>Expenses</option>
+                </select>
+                <InputBox
+                    placeholder="Account number"
+                    type="text"
+                    name="accountNumber"
+                    value={isFindingNextAccountNumber ? "Loading..." : nextAccountNumber ?? ""}
+                    disabled
+                />
                 <InputBox placeholder="Account name" type="text" name="accountName" ref={accountRef} />
                 <Button disabled={isCreatingAccount} onClick={onAddAccountClick}>
                     Add account

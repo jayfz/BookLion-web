@@ -1,8 +1,8 @@
 import { useLogin } from "@/auth/useLogin";
 import BookLionQuicksandLightLogo from "@/ui/BookLionQuicksandLightLogo";
+import Button from "@/ui/Button";
 import GoogleSvg from "@/ui/GoogleSvg";
 import InputBox from "@/ui/InputBox";
-import { Button } from "@radix-ui/themes";
 import { ChangeEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";

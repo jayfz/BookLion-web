@@ -17,8 +17,6 @@ const Container = styled.article`
     gap: 0.5rem;
     align-items: center;
     padding: 0.5rem;
-    /* border: 1px solid #e3e3e3;
-    box-shadow: -1px 1px 0px 0px #e0e0e0; */
     border-radius: 0.5rem;
     background-color: white;
 
@@ -35,15 +33,19 @@ const LeftInfo = styled.div<{ $accountType: AccountOverviewDetails["type"] }>`
     }
 
     & > div > span:first-child {
-        color: ${(props) => `var(--bl-${props.$accountType.toLocaleLowerCase()}-medium-color)`};
-    }
-
-    & > div > span:last-child {
-        padding-left: 0.25rem;
+        background-color: ${(props) => `var(--bl-${props.$accountType.toLocaleLowerCase()}-medium-color)`};
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5rem;
+        font-weight: 600;
+        font-family: "Roboto mono", monospace;
     }
 
     & > div {
         font-size: 0.875rem;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
     }
 `;
 const RightInfo = styled.div`

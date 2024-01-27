@@ -1,4 +1,4 @@
-import { getJournalEntries, getJournalEntry } from "@/service/ApiTransactions";
+import { getJournalEntry } from "@/service/ApiTransactions";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useJournalEntry(transactionId: string) {

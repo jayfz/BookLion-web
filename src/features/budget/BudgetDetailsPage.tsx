@@ -1,6 +1,5 @@
 import BudgetDetailsCard from "@/features/budget/BudgetDetailsCard";
 import useBudget from "@/features/budget/useBudget";
-import { BudgetDetails } from "@/types/account";
 import PageTitle from "@/ui/PageTitle";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -16,7 +15,7 @@ const Container = styled.article`
 
 export default function BudgetDetailsPage() {
     const { budgetId } = useParams();
-    const { isError, isPending, budget } = useBudget(budgetId);
+    const { isPending, budget } = useBudget(budgetId as string);
     return (
         <Container>
             {isPending || !budget ? (

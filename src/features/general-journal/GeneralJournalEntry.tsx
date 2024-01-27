@@ -51,10 +51,22 @@ const TransactionLine = styled(TransactionHeader).attrs<{ $accountType: AccountT
     & > div > p {
         display: inline-block;
         padding-right: 0.25rem;
+        font-family: "Roboto mono", monospace;
     }
 
-    & > div > p:last-child {
-        color: ${(props) => `var(--bl-${props.$accountType.toLocaleLowerCase()}-medium-color)`};
+    & > div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    & > div > p:first-child {
+        background-color: ${(props) => `var(--bl-${props.$accountType.toLocaleLowerCase()}-medium-color)`};
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5rem;
+        font-weight: 600;
+        font-family: "Roboto mono", monospace;
     }
 `;
 
@@ -92,8 +104,8 @@ const generalJournalEntry = (props: GeneralJournalEntryProps, ref: ForwardedRef<
                             $accountType={ledgerEntry.account.accountType}
                         >
                             <div>
-                                <p>{ledgerEntry.account.name}</p>
-                                <p>({ledgerEntry.account.number})</p>
+                                <p>{ledgerEntry.account.number}</p>
+                                <span>{ledgerEntry.account.name}</span>
                             </div>
 
                             <TransactionAmount
