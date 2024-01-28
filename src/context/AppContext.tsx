@@ -72,8 +72,6 @@ export function AppProvider({ children }: AppProviderProps) {
     };
 
     useEffect(() => {
-        console.log("adjusting token");
-
         axios.defaults.headers.common["Authorization"] = user?.token != undefined ? `Bearer ${user?.token}` : "";
     }, [user]);
 

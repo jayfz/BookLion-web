@@ -22,8 +22,7 @@ export function useLogin() {
             appContext.login(payload.data.token);
             navigate("/dashboard/overview", { replace: true });
         },
-        onError: (err) => {
-            console.log(err);
+        onError: () => {
             toast.error("Provided email or password are incorrect");
         },
     });

@@ -38,6 +38,7 @@ const AccountNumber = styled.p`
 
 const Month = styled.p`
     color: #868686;
+    font-family: "Roboto mono", monospace;
 `;
 
 export default function BudgetDetailsCard({ budgetDetails }: BudgetDetailsCard) {

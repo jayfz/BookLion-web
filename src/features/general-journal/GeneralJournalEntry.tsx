@@ -114,7 +114,7 @@ const generalJournalEntry = (props: GeneralJournalEntryProps, ref: ForwardedRef<
                                     isTransactionNegative(
                                         ledgerEntry.account.accountType,
                                         ledgerEntry.creditAmount,
-                                        ledgerEntry.creditAmount,
+                                        ledgerEntry.debitAmount,
                                     ),
                                 )}
                             >
