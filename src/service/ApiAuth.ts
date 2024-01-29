@@ -9,3 +9,11 @@ export async function loginWithPassword(email: string, password: string) {
 
     return data;
 }
+
+export async function loginWithGoogle(googleIdToken: string) {
+    const { data } = await axios.post<AppResponse<TokenPayload>>("/auth/google/login", {
+        token: googleIdToken,
+    });
+
+    return data.data;
+}

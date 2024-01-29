@@ -72,7 +72,10 @@ export function AppProvider({ children }: AppProviderProps) {
     };
 
     useEffect(() => {
-        axios.defaults.headers.common["Authorization"] = user?.token != undefined ? `Bearer ${user?.token}` : "";
+        if (user?.token) {
+            // axios.defaults.headers.common["Authorization"] = user?.token != undefined ? `Bearer ${user?.token}` : "";
+            axios.defaults.headers.common["Authorization"] = `Bearer ${user?.token}`;
+        }
     }, [user]);
 
     return <AppContext.Provider value={providerValue}>{children}</AppContext.Provider>;

@@ -1,8 +1,10 @@
 import { useLogin } from "@/auth/useLogin";
+import useLoginWithGoogle from "@/auth/useLoginWithGoogle";
 import BookLionQuicksandLightLogo from "@/ui/BookLionQuicksandLightLogo";
 import Button from "@/ui/Button";
 import GoogleSvg from "@/ui/GoogleSvg";
 import InputBox from "@/ui/InputBox";
+import { GoogleLogin } from "@react-oauth/google";
 import { ChangeEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -86,8 +88,12 @@ export default function LoginPage() {
     const [email, setEmail] = useState("carlos.bacca@gmail.com");
     const [password, setPassword] = useState("123");
     const { login, isLoggingIn } = useLogin();
+    const { googleLogin, isLoggingWithGoogle } = useLoginWithGoogle();
     const toastId = useRef<string | null>(null);
-
+    /* const loginWithGoogle = useGoogleLogin({
+        onSuccess: (codeResponse) => console.log(codeResponse),
+        // flow: "auth-code",
+    }); */
     const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
@@ -157,10 +163,20 @@ export default function LoginPage() {
                     <Or>Or</Or>
                     <Hr />
                 </Separator>
-                <GoogleLoginButton>
+                <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                        googleLogin(credentialResponse.credential ?? "");
+                        console.log(credentialResponse);
+                    }}
+                    onError={() => {
+                        console.log("something happened");
+                    }}
+                />
+
+                {/* <GoogleLoginButton onClick={handleGoogleLogin}>
                     <GoogleSvg />
                     <p>Continue with Google</p>
-                </GoogleLoginButton>
+                </GoogleLoginButton> */}
                 <PrivacyPolicy>
                     By continuing, you agree to Book Lion’s <ActionLink to="/terms-of-use">Terms of Use</ActionLink> and{" "}
                     <ActionLink to="/privacy-policy"> Privacy Policy</ActionLink>
